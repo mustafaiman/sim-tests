@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hazelcast xmlns="http://www.hazelcast.com/schema/config"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.hazelcast.com/schema/config
+           http://www.hazelcast.com/schema/config/hazelcast-config-3.11.xsd">
+
+    <group>
+        <name>workers</name>
+    </group>
+    <network>
+        <port auto-increment="true" port-count="100">5701</port>
+        <join>
+            <multicast enabled="true" loopbackModeEnabled="true">
+                <multicast-group>224.2.2.4</multicast-group>
+            </multicast>
+        </join>
+    </network>
+    <cache name="*">
+        <key-type class-name="java.lang.Integer"/>
+        <value-type class-name="java.lang.Integer"/>
+        <eviction size="1000000" max-size-policy="ENTRY_COUNT" eviction-policy="LRU" />
+    </cache>
+    <cache name="expirable.*">
+        <key-type class-name="java.lang.Integer"/>
+        <value-type class-name="java.lang.Integer"/>
+        <expiry-policy-factory class-name="com.hazelcast.simulator.tests.helpers.TouchedExpirePolicyFactory">
+        </expiry-policy-factory>
+        <eviction size="1000000" max-size-policy="ENTRY_COUNT" eviction-policy="LRU" />
+    </cache>
+
+    <map name="expirable.*">
+        <time-to-live-seconds>1</time-to-live-seconds>
+        <max-idle-seconds>1</max-idle-seconds>
+    </map>
+
+    <map name="*">
+    </map>
+</hazelcast>
