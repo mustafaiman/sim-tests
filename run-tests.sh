@@ -21,7 +21,6 @@ memberJvmArgs="${memberJvmArgs} ${gcArgs}"
 clientJvmArgs="-Xmx${clientHeapSZ} -XX:+HeapDumpOnOutOfMemoryError"
 clientJvmArgs="${clientJvmArgs} ${gcArgs}"
 
-run 2 1 2m cache.no.expiration.properties
 $SIMULATOR_HOME/bin/coordinator cache.no.expiration.properties --members $MEMBERS --clients $CLIENTS --duration $DURATION --sessionId m${MEMBERS}-c${CLIENTS}-cache-no-expiration --memberArgs "${memberArgs}" --clientArgs "${clientArgs}"
 $SIMULATOR_HOME/bin/coordinator --clean
 $SIMULATOR_HOME/bin/coordinator cache.expiration.properties --members $MEMBERS --clients $CLIENTS --duration $DURATION --sessionId m${MEMBERS}-c${CLIENTS}-cache-expiration --memberArgs "${memberArgs}" --clientArgs "${clientArgs}"
